@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Endleg Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--<meta name="google-signin-scope" content="profile email">-->
+    <meta name="google-signin-client_id" content="456985365997-vrb9vc9v7c79pfhrvkotbdpp7kfd2b2f.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link rel="Browser icon" href="favicon.ico">
+    <link href="css/styles.css" rel="stylesheet">
+
+    <script src="js/jsbn.js"></script>
+    <script src="js/jsbn2.js"></script>
+    <script src="js/sjcl.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="lib/aws/aws-cognito-sdk.min.js"></script>
+    <script src="lib/aws/amazon-cognito-identity.min.js"></script>
+    <script src="lib/aws/aws-sdk.min.js"></script>
+
+    <script src="js/amazon_cred.js"></script>
+
+</head>
+
+<body>
+<!-- Facebook SDK -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=927138690721496";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<!-- Custom Google Button-->
+<script>
+    function onSuccess(googleUser) {
+        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+        console.log(error);
+    }
+    function renderButton() {
+        gapi.signin2.render('my-signin2', {
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSuccess,
+            'onfailure': onFailure
+        });
+    }
+</script>
+
+<!-- Google SDK-->
+<script>
+    function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+    };
+</script>
+
+<div class="container full vertical-center">
+
+    <div class="container-fluid text-center" style="width: 320px;">
+
+        <div class="row">
+            <div class="col-md-12">
+                <img src="img/rock.png" alt="The Endleg" height="110px"  align="center" id="logo" style="margin-top: 30px; margin-bottom: 20px;">
+            </div>
+        </div>
+
+        <h3>The Endleg Game</h3><br>
+
+            <div class="row">
+                <div class="col col-md-12">
+
+                    <form id="frmLogin">
+                    <div class="card-block">
+
+                        <div class="form-group row">
+                            <label for="Username" class="col-2 material-icons prefix">assignment_ind</label>
+                            <div class="col-10">
+                                <input type="text" class="form-control input-sm" name="username" placeholder="Username" id="Username">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Password" class="col-2 material-icons prefix">https</label>
+                            <div class="col-10">
+                                <input type="password" class="form-control" name="password" placeholder="Password" id="Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <button id="loginButton" type="submit" class="btn btn-block btn-success">Login</button>
+
+                            <!--<div id="my-signin2"></div>-->
+                        </div>
+                        <!--<div class="form-group row">-->
+                            <!--<button id="fbButton" onclick="fb_login();" type="submit" class="btn btn-block btn-primary"> Facebook Login </button>-->
+                            <!--<button id="googleButton" type="submit" class="btn btn-block btn-danger">Google Login</button>-->
+                            <!--<div class="fb-login-button" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>-->
+                            <!--<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>-->
+                        <!--</div>-->
+                    </div>
+                    </form>
+
+                    <a href="./page-registration.html"> Register Now! </a>
+
+                </div>
+            </div>
+    </div>
+</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>-->
+<!-- Latest compiled Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>-->
+
+<!-- jQuery validator -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
+<!-- AWS SDK -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.4.8.min.js"></script>
+
+<script src="js/auth.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#frmLogin').validate({
+            rules: {
+                username: {
+                    minlength: 4,
+                    required: true
+                },
+                code: {
+                    required: true,
+                    minlength: 6
+                },
+            },
+            highlight: function (element) {
+                $(element).closest('.control-group').removeClass('success').addClass('error');
+            }
+        });
+
+        $('#frmLogin').submit(function (event) {
+            loginUser($('#frmLogin #Username').val(), $('#frmLogin #Password').val());
+            event.preventDefault();
+        });
+    });
+</script>
+
+</body>
+</html>

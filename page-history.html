@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Endleg Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link href="css/styles.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+    <!-- FlatUI removed for now !!! -->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">-->
+    <link rel="Browser icon" href="favicon.ico">
+
+    <script src="js/jsbn.js"></script>
+    <script src="js/jsbn2.js"></script>
+    <script src="js/sjcl.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="lib/aws/aws-cognito-sdk.min.js"></script>
+    <script src="lib/aws/amazon-cognito-identity.min.js"></script>
+    <script src="lib/aws/aws-sdk.min.js"></script>
+
+    <!-- Custom scripts -->
+    <script src="js/auth.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="col col-md-12">
+
+    <nav class="navbar sticky-top navbar-toggleable-md navbar-light" style="background-color: #525252; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+
+        <a class="navbar-brand" href="#">
+            <img src="img/rock.png" width="20" height="20" alt="Logo" id="lizard" class="inverted">
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="color: white">The Endleg</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="profile.html" style="color: darkgray;">Cards</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="page-history.html" style="color: white;">History</a>
+                </li>
+
+            </ul>
+            <button id="refreshButton" type="button" class="btn btn-primary btn-sm" style="margin-right: 10px;"><span class="fa fa-refresh"></span> Refresh </button>
+            <button id="logoffButton" type="submit" class="btn btn-danger btn-sm"><span class="fa fa-power-off"></span> Logout</button>
+        </div>
+    </nav>
+
+    <br>
+
+
+    <div class="row">
+       <div class="col-md-12">
+            <div class="col text-center" id="show-player-data"> Match RESULTS for Player will render here </div>
+       </div>
+    </div>
+
+        <div class="row">
+            <div class="col col-md-12 text-right">
+                <small>Deutsche Boerse Labs 2017</small>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- jQuery library -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<!-- Latest compiled Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<!-- jQuery validator -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
+<!-- AWS SDK -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.4.8.min.js"></script>
+
+<script src="js/loadjson.js"></script>
+
+<script type="text/javascript">
+
+    document.getElementById("logoffButton").addEventListener("click", function () {
+        logoutUser();
+    }, false);
+
+    document.getElementById("refreshButton").addEventListener("click", function () {
+        window.location = "./page-history.html";
+    }, false);
+</script>
+
+
+</body>
+</html>

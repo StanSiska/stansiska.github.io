@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Endleg Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+    <!-- FlatUI removed for now !!! -->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">-->
+    <link rel="Browser icon" href="favicon.ico">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="js/vendor/html5shiv.js"></script>
+    <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="css/styles.css" rel="stylesheet">
+
+    <script src="js/jsbn.js"></script>
+    <script src="js/jsbn2.js"></script>
+    <script src="js/sjcl.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="lib/aws/aws-cognito-sdk.min.js"></script>
+    <script src="lib/aws/amazon-cognito-identity.min.js"></script>
+    <script src="lib/aws/aws-sdk.min.js"></script>
+
+    <script src="js/amazon_cred.js"></script>
+
+</head>
+
+<body>
+
+<div class="container full vertical-center">
+
+    <div class="container-fluid text-center" style="width: 320px;">
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <img src="img/rock.png" alt="The Endleg" height="110px" width="110px" align="center" id="logo">
+            </div>
+        </div>
+
+        <br><h3>The Endleg Game</h3>
+        Welcome to Rock, Scissors, Paper, Lizard, Spock! Game
+
+        <form id="frmRegistration">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-block">
+
+                        <div class="form-group row">
+                            <label for="Name" class="col-2 material-icons prefix">account_circle</label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" name="name" placeholder="Name" id="Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Email" class="col-2 material-icons prefix">email</label>
+                            <div class="col-10">
+                                <input type="email" class="form-control" name="email" placeholder="Email" id="Email">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Username" class="col-2 material-icons prefix">assignment_ind</label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" name="username" placeholder="Username" id="Username">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="Password" class="col-2 material-icons prefix">https</label>
+                            <div class="col-10">
+                                <input type="password" class="form-control" name="password" placeholder="Password" id="Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <button id="registerButton" type="submit" class="btn btn-block btn-primary">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<!-- Latest compiled Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<!-- jQuery validator -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
+<!-- AWS SDK -->
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.4.8.min.js"></script>
+
+<script src="js/auth.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#frmRegistration').validate({
+            rules: {
+                name: {
+                    minlength: 4,
+                    required: true
+                },
+                email: {
+                    minlength: 5,
+                    required: true,
+                    email: true
+                },
+                username: {
+                    minlength: 5,
+                    required: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                },
+            },
+            highlight: function (element) {
+                $(element).closest('.control-group').removeClass('success').addClass('error');
+            }
+        });
+
+        $('#frmRegistration').submit(function (event) {
+            var user = {};
+                user.name = $('#frmRegistration #Name').val();
+                user.email = $('#frmRegistration #Email').val();
+                user.username = $('#frmRegistration #Username').val();
+                user.password = $('#frmRegistration #Password').val();
+            console.log('Creating user : ' + user.name, user.email, user.username )
+            registerUser(user);
+            event.preventDefault();
+        });
+    });
+</script>
+
+</body>
+</html>

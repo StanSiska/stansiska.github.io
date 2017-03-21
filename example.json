@@ -1,0 +1,29 @@
+{
+  "body": {
+    "Item": {
+      "draw": 0,
+      "user": "stan",
+      "history": {
+        "Player2": {
+          "name" : "davesade",
+          "card1" : "rock",
+          "card2" : "rock",
+          "card3" : "rock",
+          "card4" : "rock",
+          "card5" : "spock"
+        },
+        "Player1": {
+          "name" : "stan",
+          "card1" : "scissors",
+          "card2" : "paper",
+          "card3" : "paper",
+          "card4" : "paper",
+          "card5" : "spock"
+        },
+        "type": "String"
+      },
+      "wins": 2,
+      "lose": 8
+    }
+  }
+}
