@@ -9,5 +9,9 @@ Simple card game using AWS managed services:
 
   
   
-
-
+Deployment to GitHub Pages
+--------------------------
+- create repo @ github.com
+- git add --all
+- git commit -m "any commit description"
+- git push -u origin master 
